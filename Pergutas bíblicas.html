@@ -1,0 +1,2957 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Quiz Bíblico</title>
+
+    <style>
+
+        /* =====================================================
+           CONFIGURAÇÕES GERAIS
+        ===================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f1f5f9;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+
+        /* =====================================================
+           CABEÇALHO
+        ===================================================== */
+
+        header {
+            background: #1e3a5f;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0 0 10px;
+            font-size: 2rem;
+        }
+
+        header p {
+            margin: 0;
+        }
+
+
+        /* =====================================================
+           CONTEÚDO PRINCIPAL
+        ===================================================== */
+
+        main {
+            width: min(900px, 92%);
+            margin: 30px auto;
+        }
+
+
+        /* =====================================================
+           PAINEL
+        ===================================================== */
+
+        .painel {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 10px;
+            z-index: 10;
+        }
+
+        .informacoes {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .barra-container {
+            width: 100%;
+            height: 15px;
+            background: #e2e8f0;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .barra-progresso {
+            width: 0%;
+            height: 100%;
+            background: #2563eb;
+            transition: width 0.3s ease;
+        }
+
+
+        /* =====================================================
+           PERGUNTAS
+        ===================================================== */
+
+        .pergunta {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .pergunta h2 {
+            margin-top: 0;
+            font-size: 1.2rem;
+            color: #1e3a5f;
+        }
+
+        .referencia {
+            display: block;
+            margin-bottom: 20px;
+            color: #64748b;
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+
+        /* =====================================================
+           CAMPOS DE TEXTO
+        ===================================================== */
+
+        .campo-texto {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-top: 8px;
+        }
+
+        .campo-texto:focus {
+            outline: 3px solid #bfdbfe;
+            border-color: #2563eb;
+        }
+
+
+        /* =====================================================
+           OPÇÕES
+        ===================================================== */
+
+        .opcoes {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .opcao {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .opcao:hover {
+            background: #f8fafc;
+            border-color: #94a3b8;
+        }
+
+        .opcao input {
+            width: 18px;
+            height: 18px;
+        }
+
+
+        /* =====================================================
+           SELECT
+        ===================================================== */
+
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: white;
+        }
+
+
+        /* =====================================================
+           BOTÕES
+        ===================================================== */
+
+        button {
+            border: none;
+            border-radius: 8px;
+            padding: 12px 18px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:focus {
+            outline: 3px solid #93c5fd;
+        }
+
+        .botao-confirmar {
+            margin-top: 20px;
+            background: #2563eb;
+            color: white;
+        }
+
+        .botao-confirmar:hover {
+            background: #1d4ed8;
+        }
+
+        .botao-confirmar:disabled {
+            background: #16a34a;
+            cursor: not-allowed;
+        }
+
+        .botoes-finais {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .botao-gabarito {
+            background: #7c3aed;
+            color: white;
+        }
+
+        .botao-gabarito:hover {
+            background: #6d28d9;
+        }
+
+        .botao-reiniciar {
+            background: #475569;
+            color: white;
+        }
+
+        .botao-reiniciar:hover {
+            background: #334155;
+        }
+
+
+        /* =====================================================
+           MENSAGENS
+        ===================================================== */
+
+        .mensagem {
+            margin-top: 15px;
+            font-weight: bold;
+            min-height: 25px;
+        }
+
+        .acertou {
+            color: #15803d;
+        }
+
+        .errou {
+            color: #dc2626;
+        }
+
+
+        /* =====================================================
+           RESULTADO
+        ===================================================== */
+
+        #resultado {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 30px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+
+        #resultado h2 {
+            color: #1e3a5f;
+        }
+
+
+        /* =====================================================
+           GABARITO
+        ===================================================== */
+
+        #gabarito {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 30px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        #gabarito h2 {
+            color: #7c3aed;
+        }
+
+        .resposta-gabarito {
+            padding: 12px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .resposta-gabarito strong {
+            color: #1e3a5f;
+        }
+
+
+        /* =====================================================
+           RODAPÉ
+        ===================================================== */
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+            background: #1e293b;
+            color: white;
+        }
+
+
+        /* =====================================================
+           RESPONSIVIDADE
+        ===================================================== */
+
+        @media (max-width: 600px) {
+
+            .opcoes {
+                grid-template-columns: 1fr;
+            }
+
+            .informacoes {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            header h1 {
+                font-size: 1.6rem;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         CABEÇALHO
+    ====================================================== -->
+
+    <header>
+
+        <h1>📖 Quiz Bíblico</h1>
+
+        <p>
+            Teste seus conhecimentos sobre a Bíblia.
+        </p>
+
+    </header>
+
+
+    <!-- =====================================================
+         CONTEÚDO PRINCIPAL
+    ====================================================== -->
+
+    <main>
+
+
+        <!-- =================================================
+             PAINEL
+        ================================================== -->
+
+        <section
+            class="painel"
+            aria-label="Informações do quiz">
+
+            <div class="informacoes">
+
+                <div>
+                    Pontuação:
+                    <span id="pontuacao">0</span>/30
+                </div>
+
+                <div>
+                    Concluídas:
+                    <span id="concluidas">0</span>/30
+                </div>
+
+            </div>
+
+            <div class="barra-container">
+
+                <div
+                    class="barra-progresso"
+                    id="barraProgresso">
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             QUIZ
+        ================================================== -->
+
+        <form id="quiz">
+
+
+            <!-- =================================================
+                 PERGUNTA 1
+            ================================================== -->
+
+            <section class="pergunta">
+
+                <h2>
+                    1. Quem construiu a arca por ordem de Deus?
+                </h2>
+
+                <span class="referencia">
+                    Gênesis 6:13-22
+                </span>
+
+                <label for="p1">
+                    Digite sua resposta:
+                </label>
+
+                <input
+                    type="text"
+                    id="p1"
+                    class="campo-texto"
+                    autocomplete="off">
+
+                <div
+                    id="msg1"
+                    class="mensagem"
+                    aria-live="polite">
+                </div>
+
+                <button
+                    type="button"
+                    class="botao-confirmar"
+                    onclick="verificarQuestao(1)">
+
+                    Confirmar resposta
+
+                </button>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PERGUNTA 2
+            ================================================== -->
+
+            <section class="pergunta">
+
+                <h2>
+                    2. Qual foi o primeiro homem criado por Deus?
+                </h2>
+
+                <span class="referencia">
+                    Gênesis 2:7
+                </span>
+
+                <label for="p2">
+                    Digite sua resposta:
+                </label>
+
+                <input
+                    type="text"
+                    id="p2"
+                    class="campo-texto"
+                    autocomplete="off">
+
+                <div
+                    id="msg2"
+                    class="mensagem"
+                    aria-live="polite">
+                </div>
+
+                <button
+                    type="button"
+                    class="botao-confirmar"
+                    onclick="verificarQuestao(2)">
+
+                    Confirmar resposta
+
+                </button>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PERGUNTA 3
+            ================================================== -->
+
+            <section class="pergunta">
+
+                <h2>
+                    3. Quem foi lançado na cova dos leões?
+                </h2>
+
+                <span class="referencia">
+                    Daniel 6:16-23
+                </span>
+
+                <label for="p3">
+                    Digite sua resposta:
+                </label>
+
+                <input
+                    type="text"
+                    id="p3"
+                    class="campo-texto"
+                    autocomplete="off">
+
+                <div
+                    id="msg3"
+                    class="mensagem"
+                    aria-live="polite">
+                </div>
+
+                <button
+                    type="button"
+                    class="botao-confirmar"
+                    onclick="verificarQuestao(3)">
+
+                    Confirmar resposta
+
+                </button>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PERGUNTA 4
+            ================================================== -->
+
+            <section class="pergunta">
+
+                <h2>
+                    4. Qual era o nome da esposa de Abraão?
+                </h2>
+
+                <span class="referencia">
+                    Gênesis 17:15
+                </span>
+
+                <label for="p4">
+                    Digite sua resposta:
+                </label>
+
+                <input
+                    type="text"
+                    id="p4"
+                    class="campo-texto"
+                    autocomplete="off">
+
+                <div
+                    id="msg4"
+                    class="mensagem"
+                    aria-live="polite">
+                </div>
+
+                <button
+                    type="button"
+                    class="botao-confirmar"
+                    onclick="verificarQuestao(4)">
+
+                    Confirmar resposta
+
+                </button>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PERGUNTA 5
+            ================================================== -->
+
+            <section class="pergunta">
+
+                <h2>
+                    5. Quem recebeu os Dez Mandamentos?
+                </h2>
+
+                <span class="referencia">
+                    Êxodo 31:18
+                </span>
+
+                <div class="opcoes">
+
+                    <label class="opcao">
+                        <input
+                            type="radio"
+                            name="p5"
+                            value="moises">
+                        Moisés
+                    </label>
+
+                    <label class="opcao">
+                        <input
+                            type="radio"
+                            name="p5"
+                            value="aarão">
+                        Arão
+                    </label>
+
+                    <label class="opcao">
+                        <input
+                            type="radio"
+                            name="p5"
+                            value="josue">
+                        Josué
+                    </label>
+
+                    <label class="opcao">
+                        <input
+                            type="radio"
+                            name="p5"
+                            value="samuel">
+                        Samuel
+                    </label>
+
+                </div>
+
+                <div
+                    id="msg5"
+                    class="mensagem"
+                    aria-live="polite">
+                </div>
+
+                <button
+                    type="button"
+                    class="botao-confirmar"
+                    onclick="verificarQuestao(5)">
+
+                    Confirmar resposta
+
+                </button>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PERGUNTA 6
+            ================================================== -->
+
+            <section class="pergunta">
+
+                <h2>
+                    6. Qual cidade foi destruída junto com Gomorra?
+                </h2>
+
+                <span class="referencia">
+                    Gênesis 19:24-25
+                </span>
+
+                <label for="p6">
+                    Digite sua resposta:
+                </label>
+
+                <input
+                    type="text"
+                    id="p6"
+                    class="campo-texto"
+                    autocomplete="off">
+
+                <div
+                    id="msg6"
+                    class="mensagem"
+                    aria-live="polite">
+                </div>
+
+                <button
+                    type="button"
+                    class="botao-confirmar"
+                    onclick="verificarQuestao(6)">
+
+                    Confirmar resposta
+
+                </button>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PERGUNTA 7
+            ================================================== -->
+
+            <section class="pergunta">
+
+                <h2>
+                    7. Quem era a mãe de Jesus?
+                </h2>
+
+                <span class="referencia">
+                    Lucas 1:30-31
+                </span>
+
+                <label for="p7">
+                    Digite sua resposta:
+                </label>
+
+                <input
+                    type="text"
+                    id="p7"
+                    class="campo-texto"
+                    autocomplete="off">
+
+                <div
+                    id="msg7"
+                    class="mensagem"
+                    aria-live="polite">
+                </div>
+
+                <button
+                    type="button"
+                    class="botao-confirmar"
+                    onclick="verificarQuestao(7)">
+
+                    Confirmar resposta
+
+                </button>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PERGUNTA 8
+            ================================================== -->
+
+            <section class="pergunta">
+
+                <h2>
+                    8. Quem batizou Jesus?
+                </h2>
+
+                <span class="referencia">
+                    Mateus 3:13-17
+                </span>
+
+                <div class="opcoes">
+
+                    <label class="opcao">
+                        <input
+                            type="radio"
+                            name="p8"
+                            value="joao">
+                        João Batista
+                    </label>
+
+                    <label class="opcao">
+                        <input
+                            type="radio"
+                            name="p8"
+                            value="pedro">
+                        Pedro
+                    </label>
+
+                    <label class="opcao">
+                        <input
+                            type="radio"
+                            name="p8"
+                            value="tiago">
+                        Tiago
+                    </label>
+
+                    <label class="opcao">
+                        <input
+                            type="radio"
+                            name="p8"
+                            value="paulo">
+                        Paulo
+                    </label>
+
+                </div>
+
+                <div
+                    id="msg8"
+                    class="mensagem"
+                    aria-live="polite">
+                </div>
+
+                <button
+                    type="button"
+                    class="botao-confirmar"
+                    onclick="verificarQuestao(8)">
+
+                    Confirmar resposta
+
+                </button>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PERGUNTA 9
+            ================================================== -->
+
+            <section class="pergunta">
+
+                <h2>
+                    9. Quem era irmão de Moisés?
+                </h2>
+
+                <span class="referencia">
+                    Êxodo 4:14
+                </span>
+
+                <label for="p9">
+                    Digite sua resposta:
+                </label>
+
+                <input
+                    type="text"
+                    id="p9"
+                    class="campo-texto"
+                    autocomplete="off">
+
+                <div
+                    id="msg9"
+                    class="mensagem"
+                    aria-live="polite">
+                </div>
+
+                <button
+                    type="button"
+                    class="botao-confirmar"
+                    onclick="verificarQuestao(9)">
+
+                    Confirmar resposta
+
+                </button>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PERGUNTA 10
+            ================================================== -->
+
+            <section class="pergunta">
+
+                <h2>
+                    10. Qual personagem foi vendido por seus irmãos?
+                </h2>
+
+                <span class="referencia">
+                    Gênesis 37:28
+                </span>
+
+                <select id="p10">
+
+                    <option value="">
+                        Escolha uma opção
+                    </option>
+
+                    <option value="jose">
+                        José
+                    </option>
+
+                    <option value="benjamim">
+                        Benjamim
+                    </option>
+
+                    <option value="isaque">
+                        Isaque
+                    </option>
+
+                    <option value="jacó">
+                        Jacó
+                    </option>
+
+                </select>
+
+                <div
+                    id="msg10"
+                    class="mensagem"
+                    aria-live="polite">
+                </div>
+
+                <button
+                    type="button"
+                    class="botao-confirmar"
+                    onclick="verificarQuestao(10)">
+
+                    Confirmar resposta
+
+                </button>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PERGUNTA 11
+            ================================================== -->
+
+            <section class="pergunta">
+
+                <h2>
+                    11. Qual era o nome do gigante derrotado por Davi?
+                </h2>
+
+                <span class="referencia">
+                    1 Samuel 17:4, 49-50
+                </span>
+
+                <label for="p11">
+                    Digite sua resposta:
+                </label>
+
+                <input
+                    type="text"
+                    id="p11"
+                    class="campo-texto"
+                    autocomplete="off">
+
+                <div
+                    id="msg11"
+                    class="mensagem"
+                    aria-live="polite">
+                </div>
+
+                <button
+                    type="button"
+                    class="botao-confirmar"
+                    onclick="verificarQuestao(11)">
+
+                    Confirmar resposta
+
+                </button>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PERGUNTA 12
+            ================================================== -->
+
+            <section class="pergunta">
+
+                <h2>
+                    12. Quem foi o primeiro rei de Israel?
+                </h2>
+
+                <span class="referencia">
+                    1 Samuel 10:1
+                </span>
+
+                <div class="opcoes">
+
+                    <label class="opcao">
+                        <input
+                            type="radio"
+                            name="p12"
+                            value="saul">
+                        Saul
+                    </label>
+
+                    <label class="opcao">
+                        <input
+                            type="radio"
+                            name="p12"
+                            value="davi">
+                        Davi
+                    </label>
+
+                    <label class="opcao">
+                        <input
+                            type="radio"
+                            name="p12"
+                            value="salomao">
+                        Salomão
+                    </label>
+
+                    <label class="opcao">
+                        <input
+                            type="radio"
+                            name="p12"
+                            value="jeroboao">
+                        Jeroboão
+                    </label>
+
+                </div>
+
+                <div
+                    id="msg12"
+                    class="mensagem"
+                    aria-live="polite">
+                </div>
+
+                <button
+                    type="button"
+                    class="botao-confirmar"
+                    onclick="verificarQuestao(12)">
+
+                    Confirmar resposta
+
+                </button>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PERGUNTA 13
+            ================================================== -->
+
+            <section class="pergunta">
+
+                <h2>
+                    13. Qual rei ficou conhecido por sua grande sabedoria?
+                </h2>
+
+                <span class="referencia">
+                    1 Reis 3:12
+                </span>
+
+                <label for="p13">
+                    Digite sua resposta:
+                </label>
+
+                <input
+                    type="text"
+                    id="p13"
+                    class="campo-texto"
+                    autocomplete="off">
+
+                <div
+                    id="msg13"
+                    class="mensagem"
+                    aria-live="polite">
+                </div>
+
+                <button
+                    type="button"
+                    class="botao-confirmar"
+                    onclick="verificarQuestao(13)">
+
+                    Confirmar resposta
+
+                </button>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PERGUNTA 14
+            ================================================== -->
+
+            <section class="pergunta">
+
+                <h2>
+                    14. Qual profeta enfrentou os profetas de Baal no monte Carmelo?
+                </h2>
+
+                <span class="referencia">
+                    1 Reis 18:20-40
+                </span>
+
+                <label for="p14">
+                    Digite sua resposta:
+                </label>
+
+                <input
+                    type="text"
+                    id="p14"
+                    class="campo-texto"
+                    autocomplete="off">
+
+                <div
+                    id="msg14"
+                    class="mensagem"
+                    aria-live="polite">
+                </div>
+
+                <button
+                    type="button"
+                    class="botao-confirmar"
+                    onclick="verificarQuestao(14)">
+
+                    Confirmar resposta
+
+                </button>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PERGUNTA 15
+            ================================================== -->
+
+            <section class="pergunta">
+
+                <h2>
+                    15. Quais destes personagens são profetas?
+                </h2>
+
+                <span class="referencia">
+                    Exemplos baseados nos relatos bíblicos
+                </span>
+
+                <div class="opcoes">
+
+                    <label class="opcao">
+                        <input
+                            type="checkbox"
+                            name="p15"
+                            value="elias">
+                        Elias
+                    </label>
+
+                    <label class="opcao">
+                        <input
+                            type="checkbox"
+                            name="p15"
+                            value="jeremias">
+                        Jeremias
+                    </label>
+
+                    <label class="opcao">
+                        <input
+                            type="checkbox"
+                            name="p15"
+                            value="daniel">
+                        Daniel
+                    </label>
+
+                    <label class="opcao">
+                        <input
+                            type="checkbox"
+                            name="p15"
+                            value="pedro">
+                        Pedro
+                    </label>
+
+                    <label class="opcao">
+                        <input
+                            type="checkbox"
+                            name="p15"
+                            value="mateus">
+                        Mateus
+                    </label>
+
+                    <label class="opcao">
+                        <input
+                            type="checkbox"
+                            name="p15"
+                            value="timoteo">
+                        Timóteo
+                    </label>
+
+                </div>
+
+                <div
+                    id="msg15"
+                    class="mensagem"
+                    aria-live="polite">
+                </div>
+
+                <button
+                    type="button"
+                    class="botao-confirmar"
+                    onclick="verificarQuestao(15)">
+
+                    Confirmar resposta
+
+                </button>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PERGUNTA 16
+            ================================================== -->
+
+            <section class="pergunta">
+
+                <h2>
+                    16. Quais personagens não são profetas?
+                </h2>
+
+                <span class="referencia">
+                    Selecione todas as respostas corretas.
+                </span>
+
+                <div class="opcoes">
+
+                    <label class="opcao">
+    <input type="checkbox" name="p16" value="jonata">
+    Jonatã
+</label>
+
+<label class="opcao">
+    <input type="checkbox" name="p16" value="elias">
+    Elias
+</label>
+
+<label class="opcao">
+    <input type="checkbox" name="p16" value="debora">
+    Débora
+</label>
+
+<label class="opcao">
+    <input type="checkbox" name="p16" value="boaz">
+    Boaz
+</label>
+
+<label class="opcao">
+    <input type="checkbox" name="p16" value="rute">
+    Rute
+</label>
+
+<label class="opcao">
+    <input type="checkbox" name="p16" value="isaias">
+    Isaías
+</label>
+
+<label class="opcao">
+    <input type="checkbox" name="p16" value="neemias">
+    Neemias
+</label>
+
+<label class="opcao">
+    <input type="checkbox" name="p16" value="jeremias">
+    Jeremias
+</label>
+
+<label class="opcao">
+    <input type="checkbox" name="p16" value="daniel">
+    Daniel
+</label>
+
+<label class="opcao">
+    <input type="checkbox" name="p16" value="mordecai">
+    Mordecai
+</label>
+
+<label class="opcao">
+    <input type="checkbox" name="p16" value="apolo">
+    Apolo
+</label>
+
+<label class="opcao">
+    <input type="checkbox" name="p16" value="miria">
+    Miriã
+</label>
+
+<label class="opcao">
+    <input type="checkbox" name="p16" value="ester">
+    Ester
+</label>
+
+<label class="opcao">
+    <input type="checkbox" name="p16" value="joaobatista">
+    João Batista
+</label>
+
+<label class="opcao">
+    <input type="checkbox" name="p16" value="ezequiel">
+    Ezequiel
+</label>
+
+<label class="opcao">
+    <input type="checkbox" name="p16" value="marta">
+    Marta
+</label>
+
+<label class="opcao">
+    <input type="checkbox" name="p16" value="nicodemos">
+    Nicodemos
+</label>
+
+<label class="opcao">
+    <input type="checkbox" name="p16" value="hulda">
+    Hulda
+</label>
+
+<label class="opcao">
+    <input type="checkbox" name="p16" value="sara">
+    Sara
+</label>
+
+<label class="opcao">
+    <input type="checkbox" name="p16" value="ana">
+    Ana
+</label>
+
+<label class="opcao">
+    <input type="checkbox" name="p16" value="eliseu">
+    Eliseu
+</label>
+
+<label class="opcao">
+    <input type="checkbox" name="p16" value="josearimateia">
+    José de Arimatéia
+</label>
+
+<label class="opcao">
+    <input type="checkbox" name="p16" value="lazaro">
+    Lázaro
+</label>
+
+<label class="opcao">
+    <input type="checkbox" name="p16" value="samuel">
+    Samuel
+</label>
+
+                </div>
+
+                <div
+                    id="msg16"
+                    class="mensagem"
+                    aria-live="polite">
+                </div>
+
+                <button
+                    type="button"
+                    class="botao-confirmar"
+                    onclick="verificarQuestao(16)">
+
+                    Confirmar resposta
+
+                </button>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PERGUNTA 17
+            ================================================== -->
+
+            <section class="pergunta">
+
+                <h2>
+                    17. Quantos apóstolos Jesus escolheu?
+                </h2>
+
+                <span class="referencia">
+                    Lucas 6:13
+                </span>
+
+                <label for="p17">
+                    Digite sua resposta:
+                </label>
+
+                <input
+                    type="text"
+                    id="p17"
+                    class="campo-texto"
+                    autocomplete="off">
+
+                <div
+                    id="msg17"
+                    class="mensagem"
+                    aria-live="polite">
+                </div>
+
+                <button
+                    type="button"
+                    class="botao-confirmar"
+                    onclick="verificarQuestao(17)">
+
+                    Confirmar resposta
+
+                </button>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PERGUNTA 18
+            ================================================== -->
+
+            <section class="pergunta">
+
+                <h2>
+                    18. Qual era o outro nome de Mateus?
+                </h2>
+
+                <span class="referencia">
+                    Mateus 9:9; Marcos 2:14
+                </span>
+
+                <div class="opcoes">
+
+                    <label class="opcao">
+                        <input
+                            type="radio"
+                            name="p18"
+                            value="levi">
+                        Levi
+                    </label>
+
+                    <label class="opcao">
+                        <input
+                            type="radio"
+                            name="p18"
+                            value="zaqueu">
+                        Zaqueu
+                    </label>
+
+                    <label class="opcao">
+                        <input
+                            type="radio"
+                            name="p18"
+                            value="bartolomeu">
+                        Bartolomeu
+                    </label>
+
+                    <label class="opcao">
+                        <input
+                            type="radio"
+                            name="p18"
+                            value="marcos">
+                        Marcos
+                    </label>
+
+                </div>
+
+                <div
+                    id="msg18"
+                    class="mensagem"
+                    aria-live="polite">
+                </div>
+
+                <button
+                    type="button"
+                    class="botao-confirmar"
+                    onclick="verificarQuestao(18)">
+
+                    Confirmar resposta
+
+                </button>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PERGUNTA 19
+            ================================================== -->
+
+            <section class="pergunta">
+
+                <h2>
+                    19. Quem negou Jesus três vezes?
+                </h2>
+
+                <span class="referencia">
+                    Mateus 26:69-75
+                </span>
+
+                <label for="p19">
+                    Digite sua resposta:
+                </label>
+
+                <input
+                    type="text"
+                    id="p19"
+                    class="campo-texto"
+                    autocomplete="off">
+
+                <div
+                    id="msg19"
+                    class="mensagem"
+                    aria-live="polite">
+                </div>
+
+                <button
+                    type="button"
+                    class="botao-confirmar"
+                    onclick="verificarQuestao(19)">
+
+                    Confirmar resposta
+
+                </button>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PERGUNTA 20
+            ================================================== -->
+
+            <section class="pergunta">
+
+                <h2>
+                    20. Qual dos quatro Evangelhos foi escrito por um médico?
+                </h2>
+
+                <span class="referencia">
+                    Colossenses 4:14
+                </span>
+
+                <div class="opcoes">
+
+                    <label class="opcao">
+                        <input
+                            type="radio"
+                            name="p20"
+                            value="lucas">
+                        Lucas
+                    </label>
+
+                    <label class="opcao">
+                        <input
+                            type="radio"
+                            name="p20"
+                            value="mateus">
+                        Mateus
+                    </label>
+
+                    <label class="opcao">
+                        <input
+                            type="radio"
+                            name="p20"
+                            value="marcos">
+                        Marcos
+                    </label>
+
+                    <label class="opcao">
+                        <input
+                            type="radio"
+                            name="p20"
+                            value="joao">
+                        João
+                    </label>
+
+                </div>
+
+                <div
+                    id="msg20"
+                    class="mensagem"
+                    aria-live="polite">
+                </div>
+
+                <button
+                    type="button"
+                    class="botao-confirmar"
+                    onclick="verificarQuestao(20)">
+
+                    Confirmar resposta
+
+                </button>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PERGUNTA 21
+            ================================================== -->
+
+            <section class="pergunta">
+
+                <h2>
+                    21. Verdadeiro ou falso: Jesus ressuscitou Lázaro.
+                </h2>
+
+                <span class="referencia">
+                    João 11:38-44
+                </span>
+
+                <div class="opcoes">
+
+                    <label class="opcao">
+                        <input
+                            type="radio"
+                            name="p21"
+                            value="verdadeiro">
+                        Verdadeiro
+                    </label>
+
+                    <label class="opcao">
+                        <input
+                            type="radio"
+                            name="p21"
+                            value="falso">
+                        Falso
+                    </label>
+
+                </div>
+
+                <div
+                    id="msg21"
+                    class="mensagem"
+                    aria-live="polite">
+                </div>
+
+                <button
+                    type="button"
+                    class="botao-confirmar"
+                    onclick="verificarQuestao(21)">
+
+                    Confirmar resposta
+
+                </button>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PERGUNTA 22
+            ================================================== -->
+
+            <section class="pergunta">
+
+                <h2>
+                    22. Verdadeiro ou falso: Paulo era originalmente conhecido como Saulo.
+                </h2>
+
+                <span class="referencia">
+                    Atos 13:9
+                </span>
+
+                <div class="opcoes">
+
+                    <label class="opcao">
+                        <input
+                            type="radio"
+                            name="p22"
+                            value="verdadeiro">
+                        Verdadeiro
+                    </label>
+
+                    <label class="opcao">
+                        <input
+                            type="radio"
+                            name="p22"
+                            value="falso">
+                        Falso
+                    </label>
+
+                </div>
+
+                <div
+                    id="msg22"
+                    class="mensagem"
+                    aria-live="polite">
+                </div>
+
+                <button
+                    type="button"
+                    class="botao-confirmar"
+                    onclick="verificarQuestao(22)">
+
+                    Confirmar resposta
+
+                </button>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PERGUNTA 23
+            ================================================== -->
+
+            <section class="pergunta">
+
+                <h2>
+                    23. Quem escreveu o livro de Apocalipse?
+                </h2>
+
+                <span class="referencia">
+                    Apocalipse 1:1, 4
+                </span>
+
+                <label for="p23">
+                    Digite sua resposta:
+                </label>
+
+                <input
+                    type="text"
+                    id="p23"
+                    class="campo-texto"
+                    autocomplete="off">
+
+                <div
+                    id="msg23"
+                    class="mensagem"
+                    aria-live="polite">
+                </div>
+
+                <button
+                    type="button"
+                    class="botao-confirmar"
+                    onclick="verificarQuestao(23)">
+
+                    Confirmar resposta
+
+                </button>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PERGUNTA 24
+            ================================================== -->
+
+            <section class="pergunta">
+
+                <h2>
+                    24. Quem Jesus ressuscitou depois de quatro dias no túmulo?
+                </h2>
+
+                <span class="referencia">
+                    João 11:39-44
+                </span>
+
+                <label for="p24">
+                    Digite sua resposta:
+                </label>
+
+                <input
+                    type="text"
+                    id="p24"
+                    class="campo-texto"
+                    autocomplete="off">
+
+                <div
+                    id="msg24"
+                    class="mensagem"
+                    aria-live="polite">
+                </div>
+
+                <button
+                    type="button"
+                    class="botao-confirmar"
+                    onclick="verificarQuestao(24)">
+
+                    Confirmar resposta
+
+                </button>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PERGUNTA 25
+            ================================================== -->
+
+            <section class="pergunta">
+
+                <h2>
+                    25. Quais destes foram reis de Israel?
+                </h2>
+
+                <span class="referencia">
+                    1 Samuel 16; 1 Reis 2
+                </span>
+
+                <div class="opcoes">
+
+                    <label class="opcao">
+                        <input
+                            type="checkbox"
+                            name="p25"
+                            value="davi">
+                        Davi
+                    </label>
+
+                    <label class="opcao">
+                        <input
+                            type="checkbox"
+                            name="p25"
+                            value="salomao">
+                        Salomão
+                    </label>
+
+                    <label class="opcao">
+                        <input
+                            type="checkbox"
+                            name="p25"
+                            value="pedro">
+                        Pedro
+                    </label>
+
+                    <label class="opcao">
+                        <input
+                            type="checkbox"
+                            name="p25"
+                            value="paulo">
+                        Paulo
+                    </label>
+
+                    <label class="opcao">
+                        <input
+                            type="checkbox"
+                            name="p25"
+                            value="lucas">
+                        Lucas
+                    </label>
+
+                </div>
+
+                <div
+                    id="msg25"
+                    class="mensagem"
+                    aria-live="polite">
+                </div>
+
+                <button
+                    type="button"
+                    class="botao-confirmar"
+                    onclick="verificarQuestao(25)">
+
+                    Confirmar resposta
+
+                </button>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PERGUNTA 26
+            ================================================== -->
+
+            <section class="pergunta">
+
+                <h2>
+                    26. Qual era o nome da esposa de Abraão antes de ser mudado?
+                </h2>
+
+                <span class="referencia">
+                    Gênesis 17:15
+                </span>
+
+                <label for="p26">
+                    Digite sua resposta:
+                </label>
+
+                <input
+                    type="text"
+                    id="p26"
+                    class="campo-texto"
+                    autocomplete="off">
+
+                <div
+                    id="msg26"
+                    class="mensagem"
+                    aria-live="polite">
+                </div>
+
+                <button
+                    type="button"
+                    class="botao-confirmar"
+                    onclick="verificarQuestao(26)">
+
+                    Confirmar resposta
+
+                </button>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PERGUNTA 27
+            ================================================== -->
+
+            <section class="pergunta">
+
+                <h2>
+                    27. Em que Jesus foi batizado?
+                </h2>
+
+                <span class="referencia">
+                    Mateus 3:13-16
+                </span>
+
+                <div class="opcoes">
+
+                    <label class="opcao">
+                        <input
+                            type="radio"
+                            name="p27"
+                            value="agua">
+                        Água
+                    </label>
+
+                    <label class="opcao">
+                        <input
+                            type="radio"
+                            name="p27"
+                            value="oleo">
+                        Óleo
+                    </label>
+
+                    <label class="opcao">
+                        <input
+                            type="radio"
+                            name="p27"
+                            value="vinho">
+                        Vinho
+                    </label>
+
+                    <label class="opcao">
+                        <input
+                            type="radio"
+                            name="p27"
+                            value="areia">
+                        Areia
+                    </label>
+
+                </div>
+
+                <div
+                    id="msg27"
+                    class="mensagem"
+                    aria-live="polite">
+                </div>
+
+                <button
+                    type="button"
+                    class="botao-confirmar"
+                    onclick="verificarQuestao(27)">
+
+                    Confirmar resposta
+
+                </button>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PERGUNTA 28
+            ================================================== -->
+
+            <section class="pergunta">
+
+                <h2>
+                    28. Quantos dias e noites Jesus ficou no deserto sendo tentado?
+                </h2>
+
+                <span class="referencia">
+                    Mateus 4:1-2
+                </span>
+
+                <label for="p28">
+                    Digite sua resposta:
+                </label>
+
+                <input
+                    type="text"
+                    id="p28"
+                    class="campo-texto"
+                    autocomplete="off">
+
+                <div
+                    id="msg28"
+                    class="mensagem"
+                    aria-live="polite">
+                </div>
+
+                <button
+                    type="button"
+                    class="botao-confirmar"
+                    onclick="verificarQuestao(28)">
+
+                    Confirmar resposta
+
+                </button>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PERGUNTA 29
+            ================================================== -->
+
+            <section class="pergunta">
+
+                <h2>
+                    29. Qual apóstolo era conhecido anteriormente como Saulo?
+                </h2>
+
+                <span class="referencia">
+                    Atos 13:9
+                </span>
+
+                <label for="p29">
+                    Digite sua resposta:
+                </label>
+
+                <input
+                    type="text"
+                    id="p29"
+                    class="campo-texto"
+                    autocomplete="off">
+
+                <div
+                    id="msg29"
+                    class="mensagem"
+                    aria-live="polite">
+                </div>
+
+                <button
+                    type="button"
+                    class="botao-confirmar"
+                    onclick="verificarQuestao(29)">
+
+                    Confirmar resposta
+
+                </button>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PERGUNTA 30
+            ================================================== -->
+
+            <section class="pergunta">
+
+                <h2>
+                    30. Qual livro é o último livro da Bíblia?
+                </h2>
+
+                <span class="referencia">
+                    Estrutura das Escrituras Gregas Cristãs
+                </span>
+
+                <label for="p30">
+                    Digite sua resposta:
+                </label>
+
+                <input
+                    type="text"
+                    id="p30"
+                    class="campo-texto"
+                    autocomplete="off">
+
+                <div
+                    id="msg30"
+                    class="mensagem"
+                    aria-live="polite">
+                </div>
+
+                <button
+                    type="button"
+                    class="botao-confirmar"
+                    onclick="verificarQuestao(30)">
+
+                    Confirmar resposta
+
+                </button>
+
+            </section>
+
+
+        </form>
+
+
+
+        <!-- =====================================================
+             BOTÕES FINAIS
+        ====================================================== -->
+
+        <div class="botoes-finais">
+
+            <button
+                type="button"
+                class="botao-gabarito"
+                onclick="mostrarGabarito()">
+
+                Verifique sua resposta
+
+            </button>
+
+            <button
+                type="button"
+                class="botao-reiniciar"
+                onclick="reiniciarQuiz()">
+
+                Reiniciar quiz
+
+            </button>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             RESULTADO
+        ====================================================== -->
+
+        <section
+            id="resultado"
+            aria-live="polite">
+
+            <h2>Resultado do Quiz</h2>
+
+            <p>
+                Você acertou
+                <strong id="resultadoPontuacao">0</strong>
+                de 30 perguntas.
+            </p>
+
+            <p id="mensagemFinal"></p>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             GABARITO
+        ====================================================== -->
+
+        <section
+            id="gabarito"
+            aria-live="polite">
+
+            <h2>📖 Respostas das 30 perguntas</h2>
+
+            <div class="resposta-gabarito">
+                <strong>1.</strong> Noé
+            </div>
+
+            <div class="resposta-gabarito">
+                <strong>2.</strong> Adão
+            </div>
+
+            <div class="resposta-gabarito">
+                <strong>3.</strong> Daniel
+            </div>
+
+            <div class="resposta-gabarito">
+                <strong>4.</strong> Sara
+            </div>
+
+            <div class="resposta-gabarito">
+                <strong>5.</strong> Moisés
+            </div>
+
+            <div class="resposta-gabarito">
+                <strong>6.</strong> Sodoma
+            </div>
+
+            <div class="resposta-gabarito">
+                <strong>7.</strong> Maria
+            </div>
+
+            <div class="resposta-gabarito">
+                <strong>8.</strong> João Batista
+            </div>
+
+            <div class="resposta-gabarito">
+                <strong>9.</strong> Arão
+            </div>
+
+            <div class="resposta-gabarito">
+                <strong>10.</strong> José
+            </div>
+
+            <div class="resposta-gabarito">
+                <strong>11.</strong> Golias
+            </div>
+
+            <div class="resposta-gabarito">
+                <strong>12.</strong> Saul
+            </div>
+
+            <div class="resposta-gabarito">
+                <strong>13.</strong> Salomão
+            </div>
+
+            <div class="resposta-gabarito">
+                <strong>14.</strong> Elias
+            </div>
+
+            <div class="resposta-gabarito">
+                <strong>15.</strong> Elias, Jeremias e Daniel
+            </div>
+
+            <div class="resposta-gabarito">
+                <strong>16.</strong>
+                Jonatã, Boaz, Rute, Neemias, Mordecai,
+                Apolo, Ester, Marta, Nicodemos, Sara,
+                José de Arimatéia e Lázaro.
+            </div>
+
+            <div class="resposta-gabarito">
+                <strong>17.</strong> 12
+            </div>
+
+            <div class="resposta-gabarito">
+                <strong>18.</strong> Levi
+            </div>
+
+            <div class="resposta-gabarito">
+                <strong>19.</strong> Pedro
+            </div>
+
+            <div class="resposta-gabarito">
+                <strong>20.</strong> Lucas
+            </div>
+
+            <div class="resposta-gabarito">
+                <strong>21.</strong> Verdadeiro
+            </div>
+
+            <div class="resposta-gabarito">
+                <strong>22.</strong> Verdadeiro
+            </div>
+
+            <div class="resposta-gabarito">
+                <strong>23.</strong> João
+            </div>
+
+            <div class="resposta-gabarito">
+                <strong>24.</strong> Lázaro
+            </div>
+
+            <div class="resposta-gabarito">
+                <strong>25.</strong> Davi e Salomão
+            </div>
+
+            <div class="resposta-gabarito">
+                <strong>26.</strong> Sarai
+            </div>
+
+            <div class="resposta-gabarito">
+                <strong>27.</strong> Água
+            </div>
+
+            <div class="resposta-gabarito">
+                <strong>28.</strong> 40
+            </div>
+
+            <div class="resposta-gabarito">
+                <strong>29.</strong> Paulo
+            </div>
+
+            <div class="resposta-gabarito">
+                <strong>30.</strong> Apocalipse
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         RODAPÉ
+    ====================================================== -->
+
+    <footer>
+
+        <p>
+            Quiz Bíblico — teste seus conhecimentos.
+        </p>
+
+    </footer>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script>
+
+        /* =====================================================
+           RESPOSTAS CORRETAS
+        ===================================================== */
+
+        const respostas = {
+
+            1: ["noe"],
+
+            2: ["adao"],
+
+            3: ["daniel"],
+
+            4: ["sara"],
+
+            5: ["moises"],
+
+            6: ["sodoma"],
+
+            7: ["maria"],
+
+            8: ["joao"],
+
+            9: ["arao"],
+
+            10: ["jose"],
+
+            11: ["golias"],
+
+            12: ["saul"],
+
+            13: ["salomao"],
+
+            14: ["elias"],
+
+            15: [
+                "elias",
+                "jeremias",
+                "daniel"
+            ],
+
+            16: [
+                "jonata",
+                "boaz",
+                "rute",
+                "neemias",
+                "mordecai",
+                "apolo",
+                "ester",
+                "marta",
+                "nicodemos",
+                "sara",
+                "josearimateia",
+                "lazaro"
+            ],
+
+            17: ["12", "doze"],
+
+            18: ["levi"],
+
+            19: ["pedro"],
+
+            20: ["lucas"],
+
+            21: ["verdadeiro"],
+
+            22: ["verdadeiro"],
+
+            23: ["joao"],
+
+            24: ["lazaro"],
+
+            25: [
+                "davi",
+                "salomao"
+            ],
+
+            26: ["sarai"],
+
+            27: ["agua"],
+
+            28: ["40", "quarenta"],
+
+            29: ["paulo"],
+
+            30: ["apocalipse"]
+
+        };
+
+
+        /* =====================================================
+           QUESTÕES QUE SÃO DE TEXTO
+        ===================================================== */
+
+        const perguntasTexto = [
+            1, 2, 3, 4, 6, 7, 9,
+            11, 13, 14, 17, 19,
+            23, 24, 26, 28, 29, 30
+        ];
+
+
+        /* =====================================================
+           CONTROLE DA PONTUAÇÃO
+        ===================================================== */
+
+        const acertadas = new Set();
+
+
+        /* =====================================================
+           NORMALIZAR TEXTO
+
+           Faz com que:
+
+           José
+           jose
+           JOSÉ
+
+           sejam tratados como a mesma resposta.
+        ===================================================== */
+
+        function normalizar(texto) {
+
+            return texto
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .trim();
+
+        }
+
+
+        /* =====================================================
+           VERIFICAR RESPOSTA
+        ===================================================== */
+
+        function verificarQuestao(numero) {
+
+            if (acertadas.has(numero)) {
+                return;
+            }
+
+
+            let correto = false;
+
+
+            /* =================================================
+               PERGUNTAS DE TEXTO
+            ================================================= */
+
+            if (perguntasTexto.includes(numero)) {
+
+                const campo =
+                    document.getElementById("p" + numero);
+
+                const resposta =
+                    normalizar(campo.value);
+
+
+                if (resposta === "") {
+
+                    mostrarMensagem(
+                        numero,
+                        "Digite uma resposta antes de confirmar.",
+                        false
+                    );
+
+                    campo.focus();
+
+                    return;
+
+                }
+
+
+                correto =
+                    respostas[numero].includes(resposta);
+
+            }
+
+
+            /* =================================================
+               PERGUNTA 15 — CHECKBOX
+            ================================================= */
+
+            else if (numero === 15) {
+
+                correto =
+                    verificarCheckbox(
+                        numero,
+                        respostas[numero]
+                    );
+
+            }
+
+
+            /* =================================================
+               PERGUNTA 16 — CHECKBOX
+            ================================================= */
+
+            else if (numero === 16) {
+
+                correto =
+                    verificarCheckbox(
+                        numero,
+                        respostas[numero]
+                    );
+
+            }
+
+
+            /* =================================================
+               PERGUNTA 25 — CHECKBOX
+            ================================================= */
+
+            else if (numero === 25) {
+
+                correto =
+                    verificarCheckbox(
+                        numero,
+                        respostas[numero]
+                    );
+
+            }
+
+
+            /* =================================================
+               DEMAIS PERGUNTAS DE RADIO
+            ================================================= */
+
+            else {
+
+                const selecionada =
+                    document.querySelector(
+                        `input[name="p${numero}"]:checked`
+                    );
+
+
+                if (!selecionada) {
+
+                    mostrarMensagem(
+                        numero,
+                        "Selecione uma resposta antes de confirmar.",
+                        false
+                    );
+
+                    return;
+
+                }
+
+
+                correto =
+                    respostas[numero].includes(
+                        normalizar(selecionada.value)
+                    );
+
+            }
+
+
+            /* =================================================
+               MOSTRAR RESULTADO
+            ================================================= */
+
+            if (correto) {
+
+                acertadas.add(numero);
+
+
+                mostrarMensagem(
+                    numero,
+                    "✓ Acertou, parabéns!",
+                    true
+                );
+
+
+                bloquearQuestao(numero);
+
+
+                atualizarProgresso();
+
+
+                if (acertadas.size === 30) {
+
+                    mostrarResultado();
+
+                }
+
+            }
+
+            else {
+
+                mostrarMensagem(
+                    numero,
+                    "✗ Errou, tente novamente.",
+                    false
+                );
+
+            }
+
+        }
+
+
+        /* =====================================================
+           CHECKBOX
+
+           Verifica se a pessoa marcou exatamente
+           todas as respostas corretas.
+        ===================================================== */
+
+        function verificarCheckbox(numero, corretas) {
+
+            const selecionadas =
+                Array.from(
+                    document.querySelectorAll(
+                        `input[name="p${numero}"]:checked`
+                    )
+                ).map(function (item) {
+
+                    return item.value;
+
+                });
+
+
+            if (
+                selecionadas.length !==
+                corretas.length
+            ) {
+
+                return false;
+
+            }
+
+
+            const normalizadas =
+                selecionadas.map(normalizar);
+
+
+            return corretas.every(function (resposta) {
+
+                return normalizadas.includes(
+                    normalizar(resposta)
+                );
+
+            });
+
+        }
+
+
+        /* =====================================================
+           MOSTRAR MENSAGEM
+        ===================================================== */
+
+        function mostrarMensagem(
+            numero,
+            texto,
+            acertou
+        ) {
+
+            const mensagem =
+                document.getElementById(
+                    "msg" + numero
+                );
+
+
+            mensagem.textContent = texto;
+
+
+            mensagem.className =
+                "mensagem " +
+                (acertou ? "acertou" : "errou");
+
+        }
+
+
+        /* =====================================================
+           BLOQUEAR QUESTÃO DEPOIS DO ACERTO
+        ===================================================== */
+
+        function bloquearQuestao(numero) {
+
+            const mensagem =
+                document.getElementById(
+                    "msg" + numero
+                );
+
+
+            const pergunta =
+                mensagem.closest(".pergunta");
+
+
+            pergunta
+                .querySelectorAll(
+                    "input, select"
+                )
+                .forEach(function (campo) {
+
+                    campo.disabled = true;
+
+                });
+
+
+            const botao =
+                pergunta.querySelector(
+                    ".botao-confirmar"
+                );
+
+
+            botao.disabled = true;
+
+            botao.textContent =
+                "✓ Resposta correta";
+
+        }
+
+
+        /* =====================================================
+           ATUALIZAR PONTUAÇÃO E BARRA
+        ===================================================== */
+
+        function atualizarProgresso() {
+
+            const quantidade =
+                acertadas.size;
+
+
+            document.getElementById(
+                "pontuacao"
+            ).textContent = quantidade;
+
+
+            document.getElementById(
+                "concluidas"
+            ).textContent = quantidade;
+
+
+            const porcentagem =
+                (quantidade / 30) * 100;
+
+
+            document.getElementById(
+                "barraProgresso"
+            ).style.width =
+                porcentagem + "%";
+
+        }
+
+
+        /* =====================================================
+           RESULTADO FINAL
+        ===================================================== */
+
+        function mostrarResultado() {
+
+            const resultado =
+                document.getElementById(
+                    "resultado"
+                );
+
+
+            resultado.style.display =
+                "block";
+
+
+            document.getElementById(
+                "resultadoPontuacao"
+            ).textContent =
+                acertadas.size;
+
+
+            document.getElementById(
+                "mensagemFinal"
+            ).textContent =
+                "🎉 Parabéns! Você concluiu todas as 30 perguntas.";
+
+
+            resultado.scrollIntoView({
+                behavior: "smooth"
+            });
+
+        }
+
+
+        /* =====================================================
+           MOSTRAR GABARITO
+        ===================================================== */
+
+        function mostrarGabarito() {
+
+            const gabarito =
+                document.getElementById(
+                    "gabarito"
+                );
+
+
+            if (
+                gabarito.style.display ===
+                "block"
+            ) {
+
+                gabarito.style.display =
+                    "none";
+
+                return;
+
+            }
+
+
+            gabarito.style.display =
+                "block";
+
+
+            gabarito.scrollIntoView({
+                behavior: "smooth"
+            });
+
+        }
+
+
+        /* =====================================================
+           ENTER NAS PERGUNTAS DE TEXTO
+        ===================================================== */
+
+        perguntasTexto.forEach(
+            function(numero) {
+
+                const campo =
+                    document.getElementById(
+                        "p" + numero
+                    );
+
+
+                campo.addEventListener(
+                    "keydown",
+                    function(event) {
+
+                        if (
+                            event.key ===
+                            "Enter"
+                        ) {
+
+                            event.preventDefault();
+
+                            verificarQuestao(
+                                numero
+                            );
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+
+        /* =====================================================
+           REINICIAR QUIZ
+        ===================================================== */
+
+        function reiniciarQuiz() {
+
+            document
+                .getElementById("quiz")
+                .reset();
+
+
+            acertadas.clear();
+
+
+            document.getElementById(
+                "pontuacao"
+            ).textContent = "0";
+
+
+            document.getElementById(
+                "concluidas"
+            ).textContent = "0";
+
+
+            document.getElementById(
+                "barraProgresso"
+            ).style.width = "0%";
+
+
+            document
+                .querySelectorAll(".mensagem")
+                .forEach(
+                    function(mensagem) {
+
+                        mensagem.textContent =
+                            "";
+
+                        mensagem.className =
+                            "mensagem";
+
+                    }
+                );
+
+
+            document
+                .querySelectorAll(
+                    "#quiz input, #quiz select"
+                )
+                .forEach(
+                    function(campo) {
+
+                        campo.disabled =
+                            false;
+
+                    }
+                );
+
+
+            document
+                .querySelectorAll(
+                    ".botao-confirmar"
+                )
+                .forEach(
+                    function(botao) {
+
+                        botao.disabled =
+                            false;
+
+                        botao.textContent =
+                            "Confirmar resposta";
+
+                    }
+                );
+
+
+            document.getElementById(
+                "resultado"
+            ).style.display =
+                "none";
+
+
+            document.getElementById(
+                "gabarito"
+            ).style.display =
+                "none";
+
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        }
+
+    </script>
+
+</body>
+
+</html>
