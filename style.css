@@ -1,0 +1,337 @@
+  /* =====================================================
+           CONFIGURAÇÕES GERAIS
+        ===================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f1f5f9;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+
+        /* =====================================================
+           CABEÇALHO
+        ===================================================== */
+
+        header {
+            background: #1e3a5f;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0 0 10px;
+            font-size: 2rem;
+        }
+
+        header p {
+            margin: 0;
+        }
+
+
+        /* =====================================================
+           CONTEÚDO PRINCIPAL
+        ===================================================== */
+
+        main {
+            width: min(900px, 92%);
+            margin: 30px auto;
+        }
+
+
+        /* =====================================================
+           PAINEL
+        ===================================================== */
+
+        .painel {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 10px;
+            z-index: 10;
+        }
+
+        .informacoes {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .barra-container {
+            width: 100%;
+            height: 15px;
+            background: #e2e8f0;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .barra-progresso {
+            width: 0%;
+            height: 100%;
+            background: #2563eb;
+            transition: width 0.3s ease;
+        }
+
+
+        /* =====================================================
+           PERGUNTAS
+        ===================================================== */
+
+        .pergunta {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .pergunta h2 {
+            margin-top: 0;
+            font-size: 1.2rem;
+            color: #1e3a5f;
+        }
+
+        .referencia {
+            display: block;
+            margin-bottom: 20px;
+            color: #64748b;
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+
+        /* =====================================================
+           CAMPOS DE TEXTO
+        ===================================================== */
+
+        .campo-texto {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-top: 8px;
+        }
+
+        .campo-texto:focus {
+            outline: 3px solid #bfdbfe;
+            border-color: #2563eb;
+        }
+
+
+        /* =====================================================
+           OPÇÕES
+        ===================================================== */
+
+        .opcoes {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .opcao {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .opcao:hover {
+            background: #f8fafc;
+            border-color: #94a3b8;
+        }
+
+        .opcao input {
+            width: 18px;
+            height: 18px;
+        }
+
+
+        /* =====================================================
+           SELECT
+        ===================================================== */
+
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: white;
+        }
+
+
+        /* =====================================================
+           BOTÕES
+        ===================================================== */
+
+        button {
+            border: none;
+            border-radius: 8px;
+            padding: 12px 18px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:focus {
+            outline: 3px solid #93c5fd;
+        }
+
+        .botao-confirmar {
+            margin-top: 20px;
+            background: #2563eb;
+            color: white;
+        }
+
+        .botao-confirmar:hover {
+            background: #1d4ed8;
+        }
+
+        .botao-confirmar:disabled {
+            background: #16a34a;
+            cursor: not-allowed;
+        }
+
+        .botoes-finais {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .botao-gabarito {
+            background: #7c3aed;
+            color: white;
+        }
+
+        .botao-gabarito:hover {
+            background: #6d28d9;
+        }
+
+        .botao-reiniciar {
+            background: #475569;
+            color: white;
+        }
+
+        .botao-reiniciar:hover {
+            background: #334155;
+        }
+
+
+        /* =====================================================
+           MENSAGENS
+        ===================================================== */
+
+        .mensagem {
+            margin-top: 15px;
+            font-weight: bold;
+            min-height: 25px;
+        }
+
+        .acertou {
+            color: #15803d;
+        }
+
+        .errou {
+            color: #dc2626;
+        }
+
+
+        /* =====================================================
+           RESULTADO
+        ===================================================== */
+
+        #resultado {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 30px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+
+        #resultado h2 {
+            color: #1e3a5f;
+        }
+
+
+        /* =====================================================
+           GABARITO
+        ===================================================== */
+
+        #gabarito {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 30px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        #gabarito h2 {
+            color: #7c3aed;
+        }
+
+        .resposta-gabarito {
+            padding: 12px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .resposta-gabarito strong {
+            color: #1e3a5f;
+        }
+
+
+        /* =====================================================
+           RODAPÉ
+        ===================================================== */
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+            background: #1e293b;
+            color: white;
+        }
+
+
+        /* =====================================================
+           RESPONSIVIDADE
+        ===================================================== */
+
+        @media (max-width: 600px) {
+
+            .opcoes {
+                grid-template-columns: 1fr;
+            }
+
+            .informacoes {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            header h1 {
+                font-size: 1.6rem;
+            }
+
+        }
