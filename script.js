@@ -4,7 +4,7 @@
 
         const respostas = {
 
-            1: ["noe"],
+            1: ["enoque"],
 
             2: ["adao"],
 
@@ -86,6 +86,23 @@
 
         };
 
+        /* =====================================================
+   DICAS / FEEDBACKS PERSONALIZADOS
+===================================================== */
+
+const explicacoes = {
+    8: {
+        pedro: "Pedro foi um dos 12 apóstolos, mas ele não batizou Jesus.",
+        tiago: "Tiago era um dos apóstolos de Jesus, não quem o batizou.",
+        paulo: "Paulo só se converteu anos após a ressurreição de Jesus!"
+    },
+    12: {
+        davi: "Davi foi o segundo rei de Israel, ungido após Saul.",
+        salomao: "Salomão foi o terceiro rei de Israel, filho de Davi.",
+        jeroboao: "Primeiro rei do reino das dez tribos de Israel"
+    }
+};
+
 
         /* =====================================================
            QUESTÕES QUE SÃO DE TEXTO
@@ -138,6 +155,8 @@ function verificarQuestao(numero) {
     }
 
     let correto = false;
+    let selecionada = null;
+
 
     /* =================================================
        1. PERGUNTAS DE TEXTO
@@ -199,7 +218,7 @@ function verificarQuestao(numero) {
     ================================================= */
     else {
 
-        const selecionada = document.querySelector(
+        selecionada = document.querySelector(
             `input[name="p${numero}"]:checked`
         );
 
@@ -241,10 +260,20 @@ function verificarQuestao(numero) {
 
     } else {
 
+        let mensagemErro = 
+            "✗ Errou, tente novamente."
+        if (
+            selecionada &&
+            explicacoes[numero] &&
+            explicacoes[numero][normalizar(selecionada.value)]
+        ) {
+            mensagemErro = "✗ " + explicacoes[numero][normalizar(selecionada.value)];
+        }
+
         mostrarMensagem(
             numero,
-            "✗ Errou, tente novamente.",
-            false
+            mensagemErro,
+            false    
         );
 
     }
@@ -421,7 +450,14 @@ function verificarQuestao(numero) {
             document.getElementById(
                 "mensagemFinal"
             ).textContent =
-                "🎉 Parabéns! Você concluiu todas as 30 perguntas.";
+                "🎉 Parabéns! Você concluiu a fase 1, Preparado para a Fase 2?";
+
+                const botaoNivel2 = document.getElementById("btnNivel2");
+            if (botaoNivel2) {
+        botaoNivel2.onclick = function() {
+            window.location.href = "../quiz-nivel-2/index.html"; // Redireciona para o próximo arquivo
+        };
+            }
 
 
             resultado.scrollIntoView({

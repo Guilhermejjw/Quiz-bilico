@@ -35,6 +35,39 @@
             margin: 0;
         }
 
+        /* =====================================================
+            SELEÇÃO DE FASES (NÍVEIS)
+        ===================================================== */
+
+        .selecao-fase {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+.botao-fase {
+    padding: 6px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    background-color: #e2e8f0;
+    color: #334155;
+    font-size: 0.9rem;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.botao-fase:hover {
+    background-color: #cbd5e1;
+}
+
+/* Destaca qual fase o usuário está jogando no momento */
+.botao-fase.ativa {
+    background-color: #2563eb;
+    color: #ffffff;
+}
+
 
         /* =====================================================
            CONTEÚDO PRINCIPAL

@@ -29,6 +29,13 @@
             Teste seus conhecimentos sobre a Bíblia.
         </p>
 
+        <!-- SELETOR DE NÍVEL / FASES -->
+        <div class="selecao-fase">
+            <span>Escolha a Fase:</span>
+            <a href="index.html" class="botao-fase ativa">Fase 1</a>
+            <a href="../quiz-nivel-2/index.html" class="botao-fase">Fase 2</a>
+        </div>
+
     </header>
 
 
@@ -53,6 +60,7 @@
                     Pontuação:
                     <span id="pontuacao">0</span>/30
                 </div>
+                
 
                 <div>
                     Concluídas:
@@ -88,11 +96,11 @@
             <section class="pergunta">
 
                 <h2>
-                    1. Quem construiu a arca por ordem de Deus?
+                    1. Quem foi a primeira pessoa a andar com o verdadeiro Deus?
                 </h2>
 
                 <span class="referencia">
-                    Gênesis 6:13-22
+                    Gênesis 5:22
                 </span>
 
                 <label for="p1">
@@ -273,16 +281,16 @@
                         <input
                             type="radio"
                             name="p5"
-                            value="moises">
-                        Moisés
+                            value="arao">
+                        Arão
                     </label>
 
                     <label class="opcao">
                         <input
                             type="radio"
                             name="p5"
-                            value="aarão">
-                        Arão
+                            value="moises">
+                        Moisés
                     </label>
 
                     <label class="opcao">
@@ -428,8 +436,8 @@
                         <input
                             type="radio"
                             name="p8"
-                            value="joao">
-                        João Batista
+                            value="tiago">
+                        Tiago
                     </label>
 
                     <label class="opcao">
@@ -444,15 +452,15 @@
                         <input
                             type="radio"
                             name="p8"
-                            value="tiago">
-                        Tiago
+                            value="joao">
+                        João Batista
                     </label>
 
                     <label class="opcao">
                         <input
                             type="radio"
                             name="p8"
-                            value="paulo">
+                            value="Paulo">
                         Paulo
                     </label>
 
@@ -640,16 +648,16 @@
                         <input
                             type="radio"
                             name="p12"
-                            value="saul">
-                        Saul
+                            value="davi">
+                        Davi
                     </label>
 
                     <label class="opcao">
                         <input
                             type="radio"
                             name="p12"
-                            value="davi">
-                        Davi
+                            value="saul">
+                        Saul
                     </label>
 
                     <label class="opcao">
@@ -973,7 +981,7 @@
 
 <label class="opcao">
     <input type="checkbox" name="p16" value="ana">
-    Ana
+    Ana (viúva idósa)
 </label>
 
 <label class="opcao">
@@ -1799,6 +1807,12 @@
             </p>
 
             <p id="mensagemFinal"></p>
+            <button
+                type="button"
+                id="btnNivel2"
+                class="botao-confirmar">
+                Ir para a Fase 2 ➔
+            </button>
 
         </section>
 
