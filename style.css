@@ -74,7 +74,7 @@
         ===================================================== */
 
         main {
-            width: min(900px, 92%);
+            width: min(500px, 92%);
             margin: 30px auto;
         }
 
@@ -367,4 +367,16 @@
                 font-size: 1.6rem;
             }
 
+        }
+
+        /* =================================================
+        IMAGENS DAS PERGUNTAS (Ajuste de tamanho e layout)
+        ================================================== */
+        .imagem-pergunta {
+            width: 100% !important;
+            max-width: 500px !important;
+            height: auto !important;
+            display: block !important;
+            margin: 15px auto !important;
+            border-radius: 8px;
         }
