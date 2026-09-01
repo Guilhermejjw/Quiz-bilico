@@ -369,14 +369,15 @@
 
         }
 
-        /* =================================================
+       /* =================================================
         IMAGENS DAS PERGUNTAS (Ajuste de tamanho e layout)
         ================================================== */
         .imagem-pergunta {
-            width: 100% !important;
-            max-width: 500px !important;
-            height: auto !important;
-            display: block !important;
-            margin: 15px auto !important;
-            border-radius: 8px;
+            width: 100% !important;        /* Ocupa a largura disponível da caixa */
+            max-width: 320px !important;    /* Tamanho ideal para computador e telas grandes */
+            height: auto !important;       /* Mantém a proporção sem distorcer */
+            display: block !important;     /* Transforma em bloco para centralizar */
+            margin: 15px auto !important;  /* Centraliza a imagem no card */
+            border-radius: 8px;            /* Arredonda os cantos */
         }
+        
