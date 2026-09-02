@@ -74,7 +74,7 @@
         ===================================================== */
 
         main {
-            width: min(500px, 92%);
+            width: min(900px, 92%);
             margin: 30px auto;
         }
 
@@ -348,12 +348,13 @@
         }
 
 
-        /* =====================================================
-           RESPONSIVIDADE
+       /* =====================================================
+        RESPONSIVIDADE PARA CELULAR
         ===================================================== */
 
         @media (max-width: 600px) {
 
+            /* Regras gerais do site */
             .opcoes {
                 grid-template-columns: 1fr;
             }
@@ -367,14 +368,78 @@
                 font-size: 1.6rem;
             }
 
-        }
+            /* Estrutura da pergunta alinhada à esquerda */
+            .conteudo-pergunta {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+            }
 
+            .lado-texto {
+                display: contents;
+            }
+
+            /* 1. Pergunta no topo */
+            .titulo-pergunta, .lado-texto h2 {
+                order: 1;
+                margin-bottom: 4px;
+                text-align: left;
+                width: 100%;
+            }
+
+            /* 2. Referência bíblica bem próxima da pergunta e da imagem */
+            .referencia {
+                order: 2;
+                margin-bottom: 10px;
+                text-align: left;
+                width: 100%;
+            }
+
+            /* 3. Imagem */
+            .lado-imagem {
+                order: 3;
+                width: 100%;
+                margin-bottom: 15px;
+            }
+
+            .lado-imagem .imagem-pergunta {
+                width: 100% !important;
+                max-width: 320px !important;
+                margin: 0 auto !important;
+            }
+
+            /* 4. Digite sua resposta, campo e botão */
+            .lado-texto label {
+                order: 4;
+                text-align: left;
+                width: 100%;
+                margin-bottom: 5px;
+            }
+
+            .campo-resposta {
+                order: 5;
+                width: 100%;
+                max-width: 100%;
+                margin-bottom: 12px;
+            }
+
+            .botao-confirmar {
+                order: 6;
+                width: 100%;
+            }
+
+            .mensagem {
+                order: 7;
+                width: 100%;
+                text-align: left;
+            }
+        }
        /* =================================================
         IMAGENS DAS PERGUNTAS (Ajuste de tamanho e layout)
         ================================================== */
         .imagem-pergunta {
             width: 100% !important;        /* Ocupa a largura disponível da caixa */
-            max-width: 320px !important;    /* Tamanho ideal para computador e telas grandes */
+            max-width: 500px !important;    /* Tamanho ideal para computador e telas grandes */
             height: auto !important;       /* Mantém a proporção sem distorcer */
             display: block !important;     /* Transforma em bloco para centralizar */
             margin: 15px auto !important;  /* Centraliza a imagem no card */
@@ -420,4 +485,110 @@
             font-weight: bold;
             cursor: pointer;
         }
-                
+
+       /* =================================================
+   LAYOUT LADO A LADO (COMPACTO)
+================================================== */
+
+.conteudo-pergunta {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.lado-texto {
+    flex: 1;
+}
+
+.lado-texto h2 {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.referencia {
+    font-style: italic;
+    color: #64748b;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.campo-resposta {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    display: block;
+    box-sizing: border-box;
+}
+
+.lado-imagem {
+    flex-shrink: 0;
+}
+
+.lado-imagem .imagem-pergunta {
+    width: 100% !important;
+    max-width: 500px !important;
+    height: auto !important;
+    margin: 0 !important;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+
+/* =================================================
+   RESPONSIVIDADE PARA CELULAR (Ordem personalizada)
+================================================== */
+@media (max-width: 600px) {
+
+    .conteudo-pergunta {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .lado-texto {
+        display: contents;
+    }
+
+    /* 1. Pergunta no topo */
+    .titulo-pergunta, .lado-texto h2 {
+        order: 1;
+        margin-bottom: 5px;
+    }
+
+    /* 2. Referência bíblica */
+    .referencia {
+        order: 2;
+        margin-bottom: 15px;
+    }
+
+    /* 3. Imagem */
+    .lado-imagem {
+        order: 3;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .lado-imagem .imagem-pergunta {
+        width: 100% !important;
+        max-width: 320px !important;
+        margin: 0 auto !important;
+    }
+
+    /* 4. Digite sua resposta e botão de confirmar */
+    .lado-texto label,
+    .campo-resposta,
+    .botao-confirmar,
+    .mensagem {
+        order: 4;
+        width: 100%;
+    }
+
+    .campo-resposta {
+        max-width: 100%;
+    }
+}

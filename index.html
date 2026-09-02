@@ -89,160 +89,109 @@
         <form id="quiz">
 
 
-            <!-- =================================================
+          <!-- =================================================
                  PERGUNTA 1
             ================================================== -->
-
             <section class="pergunta">
 
-                <h2>
-                    1. Quem foi a primeira pessoa a andar com o verdadeiro Deus?
-                </h2>
+                <div class="conteudo-pergunta">
+                    
+                    <!-- LADO ESQUERDO: Texto, referência, campo e botão -->
+                    <div class="lado-texto">
+                        <h2 class="titulo-pergunta">1. Quem foi a primeira pessoa a andar com o verdadeiro Deus?</h2>
+                        <span class="referencia">Gênesis 5:22</span>
+                        
+                        <label for="p1">Digite sua resposta:</label>
+                        <input type="text" id="p1" class="campo-resposta" placeholder="Sua resposta...">
+                        
+                        <button class="botao-confirmar" onclick="verificarQuestao(1)">Confirmar resposta</button>
 
-                <span class="referencia">
-                    Gênesis 5:22
-                </span>
+                        <p id="msg1" class="mensagem"></p>
+                    </div>
 
-                <!-- TAG DE IMAGEM DA INTERNET -->
-                <img 
-                src="imagens/enoque.png" 
-                alt="Ilustração da pergunta" 
-                class="imagem-pergunta"
-                onclick="ampliarImagem(this)"
-                >
-        
-        
+                    <!-- LADO DIREITO: Imagem -->
+                    <div class="lado-imagem">
+                        <img 
+                            src="imagens/enoque.png" 
+                            alt="Ilustração da pergunta 1" 
+                            class="imagem-pergunta"
+                            onclick="ampliarImagem(this)"
+                        >
+                    </div>
 
-                <label for="p1">
-                    Digite sua resposta:
-                </label>
-
-                <input
-                    type="text"
-                    id="p1"
-                    class="campo-texto"
-                    autocomplete="off">
-
-                <div
-                    id="msg1"
-                    class="mensagem"
-                    aria-live="polite">
                 </div>
-
-                <button
-                    type="button"
-                    class="botao-confirmar"
-                    onclick="verificarQuestao(1)">
-
-                    Confirmar resposta
-
-                </button>
 
             </section>
 
-
-
-            <!-- =================================================
+           <!-- =================================================
                  PERGUNTA 2
             ================================================== -->
-
             <section class="pergunta">
 
-                <h2>
-                    2. Qual foi o primeiro homem criado por Deus?
-                </h2>
+                <div class="conteudo-pergunta">
+                    
+                    <!-- LADO ESQUERDO: Texto, referência, campo e botão -->
+                    <div class="lado-texto">
+                        <h2 class="titulo-pergunta">2. Qual foi o primeiro homem criado por Deus?</h2>
+                        <span class="referencia">Gênesis 2:7</span>
+                        
+                        <label for="p2">Digite sua resposta:</label>
+                        <input type="text" id="p2" class="campo-resposta" autocomplete="off" placeholder="Sua resposta...">
+                        
+                        <!-- Chama a função verificarQuestao(2) -->
+                        <button type="button" class="botao-confirmar" onclick="verificarQuestao(2)">Confirmar resposta</button>
 
-                <span class="referencia">
-                    Gênesis 2:7
-                </span>
+                        <p id="msg2" class="mensagem" aria-live="polite"></p>
+                    </div>
 
-                <!-- TAG DE IMAGEM DA INTERNET -->
-                <img 
-                src="imagens/adao.jfif" 
-                alt="Ilustração da pergunta" 
-                class="imagem-pergunta"
-                onclick="ampliarImagem(this)"
-                >
+                    <!-- LADO DIREITO: Imagem -->
+                    <div class="lado-imagem">
+                        <img 
+                            src="imagens/adao.jfif" 
+                            alt="Ilustração da pergunta 2" 
+                            class="imagem-pergunta"
+                            onclick="ampliarImagem(this)"
+                        >
+                    </div>
 
-                <label for="p2">
-                    Digite sua resposta:
-                </label>
-
-                <input
-                    type="text"
-                    id="p2"
-                    class="campo-texto"
-                    autocomplete="off">
-
-                <div
-                    id="msg2"
-                    class="mensagem"
-                    aria-live="polite">
                 </div>
 
-                <button
-                    type="button"
-                    class="botao-confirmar"
-                    onclick="verificarQuestao(2)">
-
-                    Confirmar resposta
-
-                </button>
-
             </section>
-
-
 
             <!-- =================================================
                  PERGUNTA 3
             ================================================== -->
+<section class="pergunta">
 
-            <section class="pergunta">
+                <div class="conteudo-pergunta">
+                    
+                    <!-- LADO ESQUERDO: Texto, referência, campo e botão -->
+                    <div class="lado-texto">
+                        <h2 class="titulo-pergunta">3. Quem foi lançado na cova dos leões?</h2>
+                        <span class="referencia">Daniel 6:16-23</span>
+                        
+                        <label for="p3">Digite sua resposta:</label>
+                        <input type="text" id="p3" class="campo-resposta" autocomplete="off" placeholder="Sua resposta...">
+                        
+                        <!-- Chama a função verificarQuestao(3) -->
+                        <button type="button" class="botao-confirmar" onclick="verificarQuestao(3)">Confirmar resposta</button>
 
-                <h2>
-                    3. Quem foi lançado na cova dos leões?
-                </h2>
+                        <p id="msg3" class="mensagem" aria-live="polite"></p>
+                    </div>
 
-                <span class="referencia">
-                    Daniel 6:16-23
-                </span>
+                    <!-- LADO DIREITO: Imagem -->
+                    <div class="lado-imagem">
+                        <img 
+                            src="imagens/daniel.jfif" 
+                            alt="Ilustração da pergunta 3" 
+                            class="imagem-pergunta"
+                            onclick="ampliarImagem(this)"
+                        >
+                    </div>
 
-                <!-- TAG DE IMAGEM DA INTERNET -->
-                <img 
-                src="imagens/daniel.jfif" 
-                alt="Ilustração da pergunta" 
-                class="imagem-pergunta"
-                onclick="ampliarImagem(this)"
-                >
-
-
-                <label for="p3">
-                    Digite sua resposta:
-                </label>
-
-                <input
-                    type="text"
-                    id="p3"
-                    class="campo-texto"
-                    autocomplete="off">
-
-                <div
-                    id="msg3"
-                    class="mensagem"
-                    aria-live="polite">
                 </div>
 
-                <button
-                    type="button"
-                    class="botao-confirmar"
-                    onclick="verificarQuestao(3)">
-
-                    Confirmar resposta
-
-                </button>
-
             </section>
-
 
 
             <!-- =================================================
@@ -251,50 +200,35 @@
 
             <section class="pergunta">
 
-                <h2>
-                    4. Qual era o nome da esposa de Abraão?
-                </h2>
+                <div class="conteudo-pergunta">
+                    
+                    <!-- LADO ESQUERDO: Texto, referência, campo e botão -->
+                    <div class="lado-texto">
+                        <h2 class="titulo-pergunta">Qual o nome da esposa de Abraão?</h2>
+                        <span class="referencia">Gênesis 17:15</span>
+                        
+                        <label for="p4">Digite sua resposta:</label>
+                        <input type="text" id="p4" class="campo-resposta" autocomplete="off" placeholder="Sua resposta...">
+                        
+                        <!-- Chama a função verificarQuestao(2) -->
+                        <button type="button" class="botao-confirmar" onclick="verificarQuestao(3)">Confirmar resposta</button>
 
-                <span class="referencia">
-                    Gênesis 17:15
-                </span>
+                        <p id="msg4" class="mensagem" aria-live="polite"></p>
+                    </div>
 
-                <!-- TAG DE IMAGEM DA INTERNET -->
-                <img 
-                src="imagens/sara.jfif" 
-                alt="Ilustração da pergunta" 
-                class="imagem-pergunta"
-                onclick="ampliarImagem(this)"
-                >
+                    <!-- LADO DIREITO: Imagem -->
+                    <div class="lado-imagem">
+                        <img 
+                            src="imagens/sara.jfif" 
+                            alt="Ilustração da pergunta 4" 
+                            class="imagem-pergunta"
+                            onclick="ampliarImagem(this)"
+                        >
+                    </div>
 
-                <label for="p4">
-                    Digite sua resposta:
-                </label>
-
-                <input
-                    type="text"
-                    id="p4"
-                    class="campo-texto"
-                    autocomplete="off">
-
-                <div
-                    id="msg4"
-                    class="mensagem"
-                    aria-live="polite">
                 </div>
 
-                <button
-                    type="button"
-                    class="botao-confirmar"
-                    onclick="verificarQuestao(4)">
-
-                    Confirmar resposta
-
-                </button>
-
             </section>
-
-
 
             <!-- =================================================
                  PERGUNTA 5
@@ -302,76 +236,35 @@
 
             <section class="pergunta">
 
-                <h2>
-                    5. Quem recebeu os Dez Mandamentos?
-                </h2>
+                <div class="conteudo-pergunta">
+                    
+                    <!-- LADO ESQUERDO: Texto, referência, campo e botão -->
+                    <div class="lado-texto">
+                        <h2 class="titulo-pergunta">5. Quem recebeu as pedras dos 10 mandamentos?</h2>
+                        <span class="referencia">Êxodo 31:18</span>
+                        
+                        <label for="p5">Digite sua resposta:</label>
+                        <input type="text" id="p5" class="campo-resposta" placeholder="Sua resposta...">
+                        
+                        <button class="botao-confirmar" onclick="verificarQuestao(5)">Confirmar resposta</button>
 
-                <span class="referencia">
-                    Êxodo 31:18
-                </span>
+                        <p id="msg5" class="mensagem"></p>
+                    </div>
 
-                <!-- TAG DE IMAGEM DA INTERNET -->
-                <img 
-                src="imagens/moises.jfif" 
-                alt="Ilustração da pergunta" 
-                class="imagem-pergunta"
-                onclick="ampliarImagem(this)"
-                >
-
-                <div class="opcoes">
-
-                    <label class="opcao">
-                        <input
-                            type="radio"
-                            name="p5"
-                            value="arao">
-                        Arão
-                    </label>
-
-                    <label class="opcao">
-                        <input
-                            type="radio"
-                            name="p5"
-                            value="moises">
-                        Moisés
-                    </label>
-
-                    <label class="opcao">
-                        <input
-                            type="radio"
-                            name="p5"
-                            value="josue">
-                        Josué
-                    </label>
-
-                    <label class="opcao">
-                        <input
-                            type="radio"
-                            name="p5"
-                            value="samuel">
-                        Samuel
-                    </label>
+                    <!-- LADO DIREITO: Imagem -->
+                    <div class="lado-imagem">
+                        <img 
+                            src="imagens/moises.jfif" 
+                            alt="Ilustração da pergunta 5" 
+                            class="imagem-pergunta"
+                            onclick="ampliarImagem(this)"
+                        >
+                    </div>
 
                 </div>
-
-                <div
-                    id="msg5"
-                    class="mensagem"
-                    aria-live="polite">
-                </div>
-
-                <button
-                    type="button"
-                    class="botao-confirmar"
-                    onclick="verificarQuestao(5)">
-
-                    Confirmar resposta
-
-                </button>
 
             </section>
-
-
+ 
 
             <!-- =================================================
                  PERGUNTA 6
