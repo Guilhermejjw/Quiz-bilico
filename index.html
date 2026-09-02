@@ -158,7 +158,9 @@
                 <img 
                 src="imagens/adao.jfif" 
                 alt="Ilustração da pergunta" 
-                class="imagem-pergunta">
+                class="imagem-pergunta"
+                onclick="ampliarImagem(this)"
+                >
 
                 <label for="p2">
                     Digite sua resposta:
@@ -2005,6 +2007,12 @@
     </footer>
 
     <script src="script.js"></script>
+
+    <!-- MODAL PARA AMPLIAR A IMAGEM -->
+    <div id="modal-imagem" class="modal" onclick="fecharModal()">
+        <span class="fechar">&times;</span>
+        <img class="conteudo-modal" id="img-ampliada" alt="Imagem ampliada">
+    </div>
 
 </body>
 

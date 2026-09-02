@@ -633,3 +633,18 @@ function verificarQuestao(numero) {
             });
 
         }
+        
+        // Função para abrir o Pop-up com a imagem clicada
+        function ampliarImagem(elemento) {
+            var modal = document.getElementById("modal-imagem");
+            var imgAmpliada = document.getElementById("img-ampliada");
+            
+            modal.style.display = "flex";
+            imgAmpliada.src = elemento.src;
+        }
+
+        // Função para fechar o Pop-up ao tocar na tela
+        function fecharModal() {
+            var modal = document.getElementById("modal-imagem");
+            modal.style.display = "none";
+        }      
